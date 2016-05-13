@@ -16,37 +16,32 @@ router.post('/emailsignup', function(req, res, next) {
   //req.on('data', function(data) {
   //  chunk = JSON.parse(data);
   //});
-  //
   //req.on('end', function() {
   //  console.log('name: '+chunk.name+', phone:'+chunk.phone);
   //});
-  //
-  //
   //res.write('OK');
   //res.end();
 
   var user = {
-    email  : req.body.email,
+    email    : req.body.email,
     password : req.body.password,
     nickname : req.body.nickname,
-    //gender   : req.body.gender,
-    gender     : req.body.information
-    //info2    : req.body[0].email
+    gender   : req.body.gender
   };
 
-  console.log(user);
+
 
   pool.getConnection(function(err, conn) {
     if (err) {
       next(err);
       return;
     } else {
-      conn.query('INSERT INTO botto2user SET ?', user, function(err, rows) {
+      conn.query('INSERT INTO botto2users SET ?', user, function(err, rows) {
         if (err) {
           next(err);
           return;
         } else {
-          res.send('성공');
+          res.status(200).send();
         }
         conn.release();
       });
@@ -64,7 +59,7 @@ router.post('/emailsignup', function(req, res, next) {
 //  res.render('index', { title: 'Express' });
 //});
 
-// 카카오 로그
+// 카카오 로그인
 // router.post('/kakaologin', function(req, res, next) {});
 
 module.exports = router;
