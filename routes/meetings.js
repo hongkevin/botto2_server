@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
       next(err);
       return;
     } else {
-      conn.query('SELECT * FROM botto2meetings', function(err, rows) {
+      conn.query('SELECT m.id AS meeting_id, m.spot AS spot, m.age AS age, m.number AS number, m.theday AS theday, m.introduction AS introduction, u.gender AS gender, u.google_img AS google_img, u.nickname AS nickname  FROM botto2meetings m join botto2users u on u.id = m.user_id order by m.id desc', function(err, rows) {
         if (err) {
           next(err);
           return;
